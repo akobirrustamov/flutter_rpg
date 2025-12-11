@@ -19,9 +19,8 @@ ThemeData primaryTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.secondaryAccent,
 
   // app bar theme colors
-
   appBarTheme: AppBarTheme(
-    backgroundColor:  AppColors.secondaryColor,
+    backgroundColor: AppColors.secondaryColor,
     foregroundColor: AppColors.textColor,
     surfaceTintColor: Colors.transparent,
     centerTitle: true,
@@ -31,19 +30,28 @@ ThemeData primaryTheme = ThemeData(
     bodyMedium: TextStyle(
       color: AppColors.textColor,
       fontSize: 16,
-      letterSpacing: 1
+      letterSpacing: 1,
     ),
     headlineMedium: TextStyle(
       color: AppColors.titleColor,
       fontSize: 16,
       fontWeight: FontWeight.bold,
-      letterSpacing: 1
+      letterSpacing: 1,
     ),
     titleMedium: TextStyle(
       color: AppColors.titleColor,
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      letterSpacing: 2
+      letterSpacing: 2,
     ),
-  )
+  ),
+
+  // card theme
+  cardTheme: CardThemeData(
+     color: Color.fromRGBO(45, 45, 45, 0.5),
+    surfaceTintColor: Colors.transparent,
+    shape: const RoundedRectangleBorder(),
+    shadowColor: Colors.transparent,
+    margin: const EdgeInsets.only(bottom: 16), // Added const here
+  ),
 );

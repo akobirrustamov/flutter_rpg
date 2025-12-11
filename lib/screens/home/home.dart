@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rpg/screens/home/character_card.dart';
+import 'package:flutter_rpg/shared/styled_button.dart';
 import 'package:flutter_rpg/shared/styled_text.dart';
 
 class Home extends StatefulWidget {
@@ -9,6 +11,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List characters = [
+    "Diyor",
+    "Asil",
+    "Ozod",
+    "Lobar",
+    "Aynur",
+    "Sardor",
+    "Linux",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,11 +28,19 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            StyledText("Character List"),
-            StyledHeading("Character List "),
-            StyledTitle("Character List "),
+            Expanded(
+              child: ListView.builder(
+                itemCount: characters.length,
+                itemBuilder: (_, index) {
+                  return CharacterCard(characters[index]);
+                },
+              ),
+            ),
 
-            FilledButton(onPressed: () {}, child: const Text("Create new")),
+            StyledButton(
+              onPressed: () {},
+              child: const StyledHeading("Create new"),
+            ),
           ],
         ),
       ),

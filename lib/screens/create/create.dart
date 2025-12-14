@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rpg/model/character.dart';
 import 'package:flutter_rpg/model/vocation.dart';
 import 'package:flutter_rpg/screens/create/vocation_card.dart';
+import 'package:flutter_rpg/screens/home/home.dart';
 import 'package:flutter_rpg/shared/styled_button.dart';
 import 'package:flutter_rpg/shared/styled_text.dart';
 import 'package:flutter_rpg/theme.dart';
@@ -42,10 +43,47 @@ class _CreateState extends State<Create> {
   void handleSubmit() {
     if (_nameController.text.trim().isEmpty) {
       //error dialog
+     showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const StyledHeading("Missing Shogird name"),
+          content: const StyledText("Every good Shogird needs a name.😂"),
+          actions: [
+            StyledButton(
+              onPressed: () {
+                Navigator.pop(ctx); // close dialog
+              },
+              child: const StyledText("Close"),
+            ),
+          ],
+          actionsAlignment: MainAxisAlignment.center,
+        );
+      },
+    );
+
       return;
     }
     if (_sloganController.text.trim().isEmpty) {
       //error dialog
+      showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const StyledHeading("Missing Shogird slogan name"),
+          content: const StyledText("Every good Shogird needs a slogan.😳"),
+          actions: [
+            StyledButton(
+              onPressed: () {
+                Navigator.pop(ctx); // close dialog
+              },
+              child: const StyledText("Close"),
+            ),
+          ],
+          actionsAlignment: MainAxisAlignment.center,
+        );
+      },
+    );
       return;
     }
 
@@ -57,6 +95,8 @@ class _CreateState extends State<Create> {
         id: uuid.v4(),
       ),
     );
+
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) => const Home()));
   }
 
   @override
@@ -138,15 +178,10 @@ class _CreateState extends State<Create> {
               ),
               const SizedBox(height: 40),
 
-
-               // welcome
+              // welcome
               Center(child: Icon(Icons.code, color: AppColors.primaryColor)),
               const Center(child: StyledHeading("Omad!")),
-              const Center(
-                child: StyledText(
-                  "Shgird yaratishdan to'xtama...",
-                ),
-              ),
+              const Center(child: StyledText("Shgird yaratishdan to'xtama...")),
               const SizedBox(height: 30),
 
               Center(

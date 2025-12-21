@@ -3,22 +3,24 @@ import 'package:flutter_rpg/model/character.dart';
 import 'package:flutter_rpg/model/vocation.dart';
 import 'package:flutter_rpg/screens/create/vocation_card.dart';
 import 'package:flutter_rpg/screens/home/home.dart';
+import 'package:flutter_rpg/services/character_store.dart';
 import 'package:flutter_rpg/shared/styled_button.dart';
 import 'package:flutter_rpg/shared/styled_text.dart';
 import 'package:flutter_rpg/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = const Uuid();
 
-class Create extends StatefulWidget {
-  const Create({super.key});
+class CreateScreen extends StatefulWidget {
+  const CreateScreen({super.key});
 
   @override
-  State<Create> createState() => _CreateState();
+  State<CreateScreen> createState() => _CreateScreenState();
 }
 
-class _CreateState extends State<Create> {
+class _CreateScreenState extends State<CreateScreen> {
   final _nameController = TextEditingController();
   final _sloganController = TextEditingController();
 
@@ -43,51 +45,52 @@ class _CreateState extends State<Create> {
   void handleSubmit() {
     if (_nameController.text.trim().isEmpty) {
       //error dialog
-     showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const StyledHeading("Missing Shogird name"),
-          content: const StyledText("Every good Shogird needs a name.😂"),
-          actions: [
-            StyledButton(
-              onPressed: () {
-                Navigator.pop(ctx); // close dialog
-              },
-              child: const StyledText("Close"),
-            ),
-          ],
-          actionsAlignment: MainAxisAlignment.center,
-        );
-      },
-    );
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const StyledHeading("Missing Shogird name"),
+            content: const StyledText("Every good Shogird needs a name.😂"),
+            actions: [
+              StyledButton(
+                onPressed: () {
+                  Navigator.pop(ctx); // close dialog
+                },
+                child: const StyledText("Close"),
+              ),
+            ],
+            actionsAlignment: MainAxisAlignment.center,
+          );
+        },
+      );
 
       return;
     }
     if (_sloganController.text.trim().isEmpty) {
       //error dialog
       showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const StyledHeading("Missing Shogird slogan name"),
-          content: const StyledText("Every good Shogird needs a slogan.😳"),
-          actions: [
-            StyledButton(
-              onPressed: () {
-                Navigator.pop(ctx); // close dialog
-              },
-              child: const StyledText("Close"),
-            ),
-          ],
-          actionsAlignment: MainAxisAlignment.center,
-        );
-      },
-    );
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const StyledHeading("Missing Shogird slogan name"),
+            content: const StyledText("Every good Shogird needs a slogan.😳"),
+            actions: [
+              StyledButton(
+                onPressed: () {
+                  Navigator.pop(ctx); // close dialog
+                },
+                child: const StyledText("Close"),
+              ),
+            ],
+            actionsAlignment: MainAxisAlignment.center,
+          );
+        },
+      );
       return;
     }
 
-    characters.add(
+    Provider.of<CharacterStore>(context, listen: false)
+    .addCharacter(
       Character(
         name: _nameController.text.trim(),
         slogan: _sloganController.text.trim(),
